@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('path');
+            $table->text('name');
+            $table->text('path');
             $table->timestamps();
         });
     }

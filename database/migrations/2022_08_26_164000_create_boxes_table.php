@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('boxes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('body');
-            $table->string('img');
+            $table->text('name');
+            $table->text('body');
+            $table->text('img');
             $table->timestamps();
         });
     }
