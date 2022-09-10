@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('descs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('type');
-            $table->string('body');
+            $table->text('title');
+            $table->text('type');
+            $table->text('body');
             $table->timestamps();
         });
     }
