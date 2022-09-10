@@ -36,7 +36,7 @@ class AddPageController extends Controller
             $page = pages::create($validate);
             $all = ['en' => $validate['name'],'ar'=>request('name_arabic')];
             $page->setTranslations('name',$all)->save();
-            return redirect('/' . $page->path);
+            return redirect($page->path);
         } catch (\Exception $e) {
 
             return back()->with('error', $e->getMessage());

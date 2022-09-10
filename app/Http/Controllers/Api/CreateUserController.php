@@ -15,6 +15,7 @@ class CreateUserController extends Controller
     {
         $this->middleware('auth:api');
     }
+    
     public function create(){
     try{
         $validate = request()->validate([
@@ -27,7 +28,6 @@ class CreateUserController extends Controller
         // dd($validate);
         $img = ImageApiController::api($validate['img']);
         // dd($img);
-        $validate['role'] = 0;
         $validate['password'] = bcrypt($validate['password']);
         $image = ImageApiController::api($validate['img']);
         $validate['img'] = $image->image->url;
