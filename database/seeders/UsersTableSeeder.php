@@ -22,8 +22,8 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert(array (
             0 => 
             array (
-                'id' => 5,
-                'name' => 'Charmaine W McMartin',
+                'id' => 1,
+                'name' => 'Ziad ali',
                 'email' => 'ajzead660@gmail.com',
                 'email_verified_at' => NULL,
                 'img' => 'https://iili.io/4sjQhN.png',
@@ -34,8 +34,8 @@ class UsersTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 8,
-                'name' => 'Charma1ine W McMartin11',
+                'id' => 2,
+                'name' => 'Test Account',
                 'email' => 'mahmoudganas@gmail.com',
                 'email_verified_at' => NULL,
                 'img' => 'https://iili.io/4secF9.png',
