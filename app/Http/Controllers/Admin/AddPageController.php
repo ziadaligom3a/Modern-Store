@@ -32,7 +32,7 @@ class AddPageController extends Controller
                 'path' => 'required'
 
             ]);
-          
+            dd($validate);
             $page = pages::create($validate);
             $all = ['en' => $validate['name'],'ar'=>request('name_arabic')];
             $page->setTranslations('name',$all)->save();
