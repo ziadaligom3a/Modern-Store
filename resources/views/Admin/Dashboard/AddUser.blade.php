@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Edit Product</title>
+    <title>Add User</title>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:400,700"
@@ -171,7 +171,7 @@
                     type="button"
                     required
                     class="btn btn-primary btn-block mx-auto"
-                    value="UPLOAD PRODUCT IMAGE"
+                    value="UPLOAD User IMAGE"
                     onclick="document.getElementById('file').click();"
                   />
                 </div>
@@ -181,7 +181,7 @@
 
 
               <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product</button>
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add User</button>
               </div>
             </form>
             </div>

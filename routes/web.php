@@ -85,7 +85,7 @@ Route::post('Search',[Search::class,'search'])->name('Search');
 
 
 Route::get('categories/{category:slug}',[ProductController::class,'category'])->name('category');
-
+Route::get('register');
 
 
 Route::middleware('auth')->group(function(){
@@ -106,6 +106,7 @@ Route::middleware(['auth','role:User'])->group(function(){
     Route::get('/home/Account',[AccountController::class,'index']);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
+
 
 Auth::routes();
                         
