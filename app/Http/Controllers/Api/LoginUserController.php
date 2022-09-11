@@ -32,7 +32,8 @@ class LoginUserController extends Controller
                 'Access Token' => $auth,
                 'Token_Type' => 'Bearer',
                 'Expires_in' => auth()->factory()->getTTL() * 60, 
-                'User' => auth()->user()
+                'User' => auth()->user(),
+                'Role' => auth()->user()->roles
 
 
             ],200,[]);
