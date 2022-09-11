@@ -12,6 +12,7 @@ class InfoUserController extends Controller
         if(auth()->check()){
 
             return response()->json([auth()->user()]);
+            
         }else{
 
             return response()->json(['Please Login first']);

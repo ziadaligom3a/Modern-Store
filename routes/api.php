@@ -30,7 +30,7 @@ Route::prefix('auth')->middleware('api')->group(function(){
     Route::post('Login',[LoginUserController::class,'login']);
     Route::post('password/email', 'App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 });
-Route::prefix('user')->middleware('auth:api','user-access:user')->group(function(){
+Route::prefix('user')->middleware('auth:api','role:Admin|User')->group(function(){
     Route::post('Edit',[EditUserController::class,'edit']);
     Route::post('Info',[InfoUserController::class,'info']);
     Route::post('Delete',[DeleteUserController::class,'delete']);

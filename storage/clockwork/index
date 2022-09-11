@@ -7387,3 +7387,6 @@
 1662856747-6126-85606292,1662856747.607,GET,/fonts/poppins/poppins-v5-latin-regular.ttf,,404,13.844013214111,request
 1662856747-6310-1852812555,1662856747.6228,GET,/fonts/poppins/poppins-v5-latin-600.ttf,,404,16.829967498779,request
 1662856747-8781-894343447,1662856747.8733,GET,/fonts/poppins/poppins-v5-latin-500.ttf,,404,15.474081039429,request
+1662857105-6908-769444176,1662857105.6732,POST,/api/user/Info,"App\Http\Controllers\Api\InfoUserController@info",403,105.12804985046,request
+1662857123-7532-418305791,1662857123.7428,POST,/api/user/Info,"App\Http\Controllers\Api\InfoUserController@info",200,52.237033843994,request
+1662857134-0789-698962991,1662857134.0311,POST,/api/user/Info,"App\Http\Controllers\Api\InfoUserController@info",200,156.84199333191,request
