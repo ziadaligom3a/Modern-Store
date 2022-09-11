@@ -29,8 +29,8 @@
           <div class="col-md-12">
              <div class="our_products" style="background-color:<?php echo e($color); ?>">
                 <div class="row">
-                   <?php $__currentLoopData = $name->product; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $n): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                   <?php if(!Route::is('category') && !Route::is('Search')): ?>
+                  <?php if(!Route::is('category') && !Route::is('Search')): ?>
+                   <?php $__currentLoopData = $name; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $n): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                    <div class="col-md-4 margin_bottom1">
                       <div class="product_box">
                          <a href="/categories/<?php echo e($n->slug); ?>">
@@ -38,7 +38,9 @@
                            <h3><?php echo e($n->name); ?></h3></a>
                         </div>
                      </div>
+                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                    <?php else: ?>:
+                   <?php $__currentLoopData = $name->product; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $n): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                    <div class="card">
 
                      <div class="imgBox">
@@ -50,10 +52,11 @@
                         <h3 class="animate-charcter"><?php echo e($n->price); ?> EGP</h3>
                         <a href="/Product/<?php echo e($n->id); ?>" class="buy">Buy Now</a>
                      </div>
-                     
+               
                   </div>
-                  <?php endif; ?>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                  <?php endif; ?>
 
                </div>
              </div>

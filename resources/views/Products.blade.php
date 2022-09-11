@@ -240,6 +240,6 @@
 
  {{-- @dd($name) --}}
    </body>
-   {{-- @dd($product) --}}
+  
 </html>
 

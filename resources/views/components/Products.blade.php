@@ -18,8 +18,8 @@
           <div class="col-md-12">
              <div class="our_products" style="background-color:{{ $color }}">
                 <div class="row">
-                   @foreach($name->product as $n)
-                   @if(!Route::is('category') && !Route::is('Search'))
+                  @if(!Route::is('category') && !Route::is('Search'))
+                   @foreach($name as $n)
                    <div class="col-md-4 margin_bottom1">
                       <div class="product_box">
                          <a href="/categories/{{ $n->slug }}">
@@ -27,7 +27,9 @@
                            <h3>{{ $n->name }}</h3></a>
                         </div>
                      </div>
+                     @endforeach
                    @else:
+                   @foreach($name->product as $n)
                    <div class="card">
 
                      <div class="imgBox">
@@ -39,10 +41,11 @@
                         <h3 class="animate-charcter">{{ $n->price }} EGP</h3>
                         <a href="/Product/{{ $n->id }}" class="buy">Buy Now</a>
                      </div>
-                     
+               
                   </div>
-                  @endif
                   @endforeach
+
+                  @endif
 
                </div>
              </div>

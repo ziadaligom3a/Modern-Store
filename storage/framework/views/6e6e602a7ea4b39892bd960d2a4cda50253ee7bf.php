@@ -296,7 +296,7 @@
 
  
    </body>
-   
+  
 </html>
 
 <?php /**PATH /var/www/html/Laravel-Projects/MAIN/resources/views/Products.blade.php ENDPATH**/ ?>
