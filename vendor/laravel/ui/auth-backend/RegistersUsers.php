@@ -37,7 +37,6 @@ trait RegistersUsers
                 'name' => 'required',
                 'email' => ['required','email',Rule::unique('users','email')],
                 'password' => 'required',
-                'img' => 'required'
             ]);
             
             // dd($img);
