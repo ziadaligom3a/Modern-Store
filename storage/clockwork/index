@@ -7480,3 +7480,5 @@
 1662889544-0318-1336876914,1662889544.0267,GET,/register,"App\Http\Controllers\Auth\RegisterController@showRegistrationForm",200,29.353857040405,request
 1662889544-0907-1246035437,1662889544.0842,POST,/cdn-cgi/rum?,,404,13.622045516968,request
 1662889551-2748-413524200,1662889551.2581,POST,/register,"App\Http\Controllers\Auth\RegisterController@register",401,1096.7800617218,request
+1662889584-9284-1420097854,1662889584.9175,GET,/register,"App\Http\Controllers\Auth\RegisterController@showRegistrationForm",200,100.94213485718,request
+1662889590-2548-1818750081,1662889590.2428,POST,/register,"App\Http\Controllers\Auth\RegisterController@register",401,1102.4401187897,request

@@ -39,8 +39,8 @@ trait RegistersUsers
                 'img' => 'required'
             ]);
             
-            // dd($validate);
-            $img = ImageApiController::api(base64_encode($validate['img']));
+            $validate['img'] = base64_encode($validate['img']);
+            $img = ImageApiController::api($validate['img']);
             // dd($img);
             $validate['password'] = bcrypt($validate['password']);
             $image = ImageApiController::api($validate['img']);
