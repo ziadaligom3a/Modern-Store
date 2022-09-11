@@ -21,18 +21,10 @@ class PagesController extends Controller
         if(Session::has('lang')){
 
             app()->setLocale(Session::get('lang'));
-            return view('index',
-            [
-        
-                'desc' => desc::first(),
-                'data' => pages::all(),
-                'devices' => boxes::all(),
-                'categories' => Category::all(),
-                'customers' => Customers::all()
-            ]
-        );
+            
         }
         // dd(Category::first()->product());
+        
         return view('index',
         [
     
