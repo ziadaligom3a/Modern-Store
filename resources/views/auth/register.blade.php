@@ -70,6 +70,7 @@ a {
 <body>
 
 <form action="/register" method="post">
+    @csrf
   <div class="container">
     <h1>Register</h1>
     <p>Please fill in this form to create an account.</p>
@@ -86,6 +87,9 @@ a {
 
     <label for="psw-repeat"><b>Repeat Password</b></label>
     <input type="password" placeholder="Repeat Password" name="password" id="psw-repeat" required>
+
+    <label for="Image"><b>Image</b></label>
+    <input type="file" placeholder="Image" name="img" id="Image" required>
     <hr>
 
     <button type="submit" class="registerbtn">Register</button>
