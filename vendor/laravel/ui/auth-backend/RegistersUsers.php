@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\Admin\ImageApiController;
+use App\Models\User;
 
 trait RegistersUsers
 {
@@ -39,12 +40,9 @@ trait RegistersUsers
                 'img' => 'required'
             ]);
             
-            $validate['img'] = base64_encode($validate['img']);
-            $img = ImageApiController::api($validate['img']);
             // dd($img);
             $validate['password'] = bcrypt($validate['password']);
-            $image = ImageApiController::api($validate['img']);
-            $validate['img'] = $image->image->url;
+            $validate['img'] = 'null';
             $user = User::create($validate);
             $user->assignRole('User');
             $attempt = auth()->login($user);
