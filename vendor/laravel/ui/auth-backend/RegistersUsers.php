@@ -2,10 +2,12 @@
 
 namespace Illuminate\Foundation\Auth;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
+use App\Http\Controllers\Admin\ImageApiController;
 
 trait RegistersUsers
 {
@@ -29,40 +31,29 @@ trait RegistersUsers
      */
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->create($request->all())));
-        $user->assignRole('User');
-        $this->guard()->login($user);
-
-        if ($response = $this->registered($request, $user)) {
-            return $response;
+        try{
+            $validate = request()->validate([
+                'name' => 'required',
+                'email' => ['required','email',Rule::unique('users','email')],
+                'password' => 'required',
+                'img' => 'required'
+            ]);
+            
+            // dd($validate);
+            $img = ImageApiController::api($validate['img']);
+            // dd($img);
+            $validate['password'] = bcrypt($validate['password']);
+            $image = ImageApiController::api($validate['img']);
+            $validate['img'] = $image->image->url;
+            $user = User::create($validate);
+            $user->assignRole('User');
+            $attempt = auth()->login($user);
+            return redirect('/home');
+    
+        }catch(\Exception $e){
+    
+            return response()->json([[$e->getMessage()]],401,[]);
         }
-
-        return $request->wantsJson()
-                    ? new JsonResponse([], 201)
-                    : redirect($this->redirectPath());
-    }
-
-    /**
-     * Get the guard to be used during registration.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    protected function guard()
-    {
-        return Auth::guard();
-    }
-
-    /**
-     * The user has been registered.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function registered(Request $request, $user)
-    {
-        //
+    
     }
 }

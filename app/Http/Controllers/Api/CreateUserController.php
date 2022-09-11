@@ -32,6 +32,7 @@ class CreateUserController extends Controller
         $image = ImageApiController::api($validate['img']);
         $validate['img'] = $image->image->url;
         $user = User::create($validate);
+        $user->assignRole('User');
         $attempt = auth()->login($user);
         return response()->json([
 
