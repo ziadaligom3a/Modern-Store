@@ -16,12 +16,9 @@ class Search extends Controller
         if(Session::has('lang')){
 
             app()->setLocale(Session::get('lang'));
-            return view('Search',[
 
-                'categories' => Category::all()
-            ]);
         }
-
+        
         return view('Search',[
 
             'categories' => Category::all()
@@ -40,6 +37,7 @@ class Search extends Controller
         ]);
 
         if($validate['category'] == 0){
+            
             // dd($validate['keyword']);
             $query = Product::select('*')->where('name','LIKE','%' . $validate['keyword'] . '%')->get
             ();

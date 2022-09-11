@@ -29,7 +29,7 @@
           <div class="col-md-12">
              <div class="our_products" style="background-color:<?php echo e($color); ?>">
                 <div class="row">
-                   <?php $__currentLoopData = $name; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $n): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                   <?php $__currentLoopData = $name->product; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $n): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                    <?php if(!Route::is('category') && !Route::is('Search')): ?>
                    <div class="col-md-4 margin_bottom1">
                       <div class="product_box">

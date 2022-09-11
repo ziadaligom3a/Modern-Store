@@ -18,7 +18,7 @@
           <div class="col-md-12">
              <div class="our_products" style="background-color:{{ $color }}">
                 <div class="row">
-                   @foreach($name as $n)
+                   @foreach($name->product as $n)
                    @if(!Route::is('category') && !Route::is('Search'))
                    <div class="col-md-4 margin_bottom1">
                       <div class="product_box">

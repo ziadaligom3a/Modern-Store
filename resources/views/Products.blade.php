@@ -211,7 +211,8 @@
      
       <!-- three_box -->
       <!-- products -->
-      <x-Products :name="$product->product" /> 
+      
+      <x-Products :name="$product" /> 
         
       <!-- end products -->
       <!-- laptop  section -->
