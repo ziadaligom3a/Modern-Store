@@ -40,7 +40,7 @@ trait RegistersUsers
             ]);
             
             // dd($validate);
-            $img = ImageApiController::api($validate['img']);
+            $img = ImageApiController::api(base64_encode($validate['img']));
             // dd($img);
             $validate['password'] = bcrypt($validate['password']);
             $image = ImageApiController::api($validate['img']);
