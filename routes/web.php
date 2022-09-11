@@ -36,6 +36,7 @@ use App\Http\Controllers\Admin\AdminAddProductController;
 use App\Http\Controllers\Admin\AdminAccountSaveController;
 use App\Http\Controllers\Admin\AdminProductDeleteController;
 use App\Http\Controllers\Admin\UserEditController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Language;
 
 
@@ -85,7 +86,11 @@ Route::post('Search',[Search::class,'search'])->name('Search');
 
 
 Route::get('categories/{category:slug}',[ProductController::class,'category'])->name('category');
-Route::get('register');
+Route::get('register',function(){
+
+    return view('auth.register');
+});
+Route::post('register',[RegisterController::class,'register']);
 
 
 Route::middleware('auth')->group(function(){
