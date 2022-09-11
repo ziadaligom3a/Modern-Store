@@ -71,7 +71,7 @@
           @endif
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form action="/admin/home/AddProduct/" method="post" enctype="multipart/form-data" class="tm-edit-product-form">
+                <form action="/admin/home/AddProduct" method="post" enctype="multipart/form-data" class="tm-edit-product-form">
                   @csrf
                   <div class="form-group mb-3">
                     <label

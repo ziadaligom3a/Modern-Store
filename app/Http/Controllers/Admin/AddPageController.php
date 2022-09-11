@@ -21,10 +21,25 @@ class AddPageController extends Controller
     }
 
     public function add()
-    {
+    {                
 
+        try {
 
-        dd(request());
+            $validate = request()->validate([
+
+                'name' => 'required',
+                'path' => 'required'
+
+            ]);
+
+            $page = pages::create($validate);
+            $all = ['en' => $validate['name'],'ar'=>request('name_arabic')];
+            $page->setTranslations('name',$all)->save();
+            return redirect($page->path);
+        } catch (\Exception $e) {
+
+            return back()->with('error', $e->getMessage());
+        }
 
     }
     
