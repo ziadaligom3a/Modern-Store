@@ -10,7 +10,7 @@ class ContactController extends Controller
     public function index(){
 
      try{
-    
+
         $GLOBALS['validate'] = request()->validate([
 
 
@@ -21,11 +21,11 @@ class ContactController extends Controller
         ]);
 
        $mail = Mail::send('mail.index',['validate' => $GLOBALS['validate']],function($message){
-        $message->to('ajzead660@gmail.com','New Mail')->subject('New Mail');
+        $message->to('your email','New Mail')->subject('New Mail');
         $message->from($GLOBALS['validate']['email'],$GLOBALS['validate']['name']);
 
        });
-       
+
     //   dd($mail);
 
         return redirect('/#contact')->with('Success','Ihre E-Mail wurde erfolgreich gesendet');

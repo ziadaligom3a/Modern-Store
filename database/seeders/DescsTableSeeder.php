@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Database\Seeders\RolesTableSeeder;
+use Database\Seeders\ModelHasRolesTableSeeder;
 
 class DescsTableSeeder extends Seeder
 {
@@ -15,12 +17,13 @@ class DescsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+        $this->call(RolesTableSeeder::class); // Seed roles first
+        $this->call(ModelHasRolesTableSeeder::class); // Seed model_has_roles afterward
 
         DB::table('descs')->delete();
-        
+
         DB::table('descs')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'title' => '{"en":"Computer And Laptop","ar":"كمبيوتر ولابتوب"}',
@@ -30,7 +33,5 @@ class DescsTableSeeder extends Seeder
                 'updated_at' => NULL,
             ),
         ));
-        
-        
     }
 }

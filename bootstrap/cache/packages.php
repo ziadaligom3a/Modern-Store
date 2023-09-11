@@ -1,4 +1,11 @@
 <?php return array (
+  'archtechx/laravel-seo' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'ArchTech\\SEO\\SEOServiceProvider',
+    ),
+  ),
   'intervention/image' => 
   array (
     'providers' => 

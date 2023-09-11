@@ -81,15 +81,12 @@ Route::get('Search',[Search::class,'index']);
 
 Route::post('Search',[Search::class,'search'])->name('Search');
 
-            /* Pages Routes */ 
+            /* Pages Routes */
 
 
 
 Route::get('categories/{category:slug}',[ProductController::class,'category'])->name('category');
-Route::get('register',function(){
 
-    return view('auth.register');
-});
 Route::post('register',[RegisterController::class,'register']);
 
 
@@ -99,7 +96,7 @@ Route::middleware('auth')->group(function(){
     Route::post('/Account/Save',[AccountSaveController::class,'index'])->name('user.save');
     Route::post('Image/Upload',[ImageController::class,'index']);
     Route::post('Account/Delete',[AccountController::class,'delete']);
-    
+
 });
 
 
@@ -114,11 +111,10 @@ Route::middleware(['auth','role:User'])->group(function(){
 
 
 Auth::routes();
-                        
+
                                 /*  USER ROLE  */
 
-
-
+                                
                                  /* Admin Routes */
 Route::prefix('admin')->middleware(['auth','role:Admin'])->group(function(){
 Route::get('/home', [App\Http\Controllers\Admin\AdminHomeController::class, 'Adminindex'])->name('Adminhome');

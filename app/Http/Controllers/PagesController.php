@@ -18,6 +18,7 @@ class PagesController extends Controller
     public function index(){      
         // Role::create(['name' => 'User']);
         
+
         if(Session::has('lang')){
 
             app()->setLocale(Session::get('lang'));

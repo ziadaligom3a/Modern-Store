@@ -3,6 +3,7 @@
 namespace Spatie\Translatable;
 
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
 use Spatie\Translatable\Events\TranslationHasBeenSetEvent;
@@ -17,13 +18,22 @@ trait HasTranslations
         return (new self())->setLocale($locale);
     }
 
+    public function useFallbackLocale(): bool
+    {
+        if (property_exists($this, 'useFallbackLocale')) {
+            return $this->useFallbackLocale;
+        }
+
+        return true;
+    }
+
     public function getAttributeValue($key): mixed
     {
         if (! $this->isTranslatableAttribute($key)) {
             return parent::getAttributeValue($key);
         }
 
-        return $this->getTranslation($key, $this->getLocale());
+        return $this->getTranslation($key, $this->getLocale(), $this->useFallbackLocale());
     }
 
     public function setAttribute($key, $value)
@@ -74,6 +84,10 @@ trait HasTranslations
             return $this->mutateAttribute($key, $translation);
         }
 
+        if($this->hasAttributeMutator($key)){
+            return $this->mutateAttributeMarkedAttribute($key, $translation);
+        }
+
         return $translation;
     }
 
@@ -118,6 +132,11 @@ trait HasTranslations
             $method = 'set'.Str::studly($key).'Attribute';
 
             $this->{$method}($value, $locale);
+
+            $value = $this->attributes[$key];
+        }
+        elseif($this->hasAttributeSetMutator($key)) { // handle new attribute mutator
+            $this->setAttributeMarkedMutatedAttributeValue($key, $value);
 
             $value = $this->attributes[$key];
         }
@@ -231,9 +250,13 @@ trait HasTranslations
             return $locale;
         }
 
+        if (method_exists($this, 'getFallbackLocale')) {
+            $fallbackLocale = $this->getFallbackLocale();
+        }
+
         $fallbackConfig = app(Translatable::class);
 
-        $fallbackLocale = $fallbackConfig->fallbackLocale ?? config('app.fallback_locale');
+        $fallbackLocale ??= $fallbackConfig->fallbackLocale ?? config('app.fallback_locale');
 
         if (! is_null($fallbackLocale) && in_array($fallbackLocale, $translatedLocales)) {
             return $fallbackLocale;
@@ -303,5 +326,48 @@ trait HasTranslations
             parent::getCasts(),
             array_fill_keys($this->getTranslatableAttributes(), 'array'),
         );
+    }
+
+    public function locales(): array
+    {
+        return array_unique(
+            array_reduce($this->getTranslatableAttributes(), function ($result, $item) {
+                return array_merge($result, $this->getTranslatedLocales($item));
+            }, [])
+        );
+    }
+
+    public function scopeWhereLocale(Builder $query, string $column, string $locale): void
+    {
+        $query->whereNotNull("{$column}->{$locale}");
+    }
+
+    public function scopeWhereLocales(Builder $query, string $column, array $locales): void
+    {
+        $query->where(function (Builder $query) use ($column, $locales) {
+            foreach ($locales as $locale) {
+                $query->orWhereNotNull("{$column}->{$locale}");
+            }
+        });
+    }
+
+    /**
+     * @deprecated
+     */
+    public static function whereLocale(string $column, string $locale): Builder
+    {
+        return static::query()->whereNotNull("{$column}->{$locale}");
+    }
+
+    /**
+     * @deprecated
+     */
+    public static function whereLocales(string $column, array $locales): Builder
+    {
+        return static::query()->where(function (Builder $query) use ($column, $locales) {
+            foreach ($locales as $locale) {
+                $query->orWhereNotNull("{$column}->{$locale}");
+            }
+        });
     }
 }

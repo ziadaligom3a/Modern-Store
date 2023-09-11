@@ -64,8 +64,16 @@ abstract class PackageServiceProvider extends ServiceProvider
 
             if ($this->package->hasViews) {
                 $this->publishes([
-                    $this->package->basePath('/../resources/views') => base_path("resources/views/vendor/{$this->package->shortName()}"),
-                ], "{$this->package->shortName()}-views");
+                    $this->package->basePath('/../resources/views') => base_path("resources/views/vendor/{$this->packageView($this->package->viewNamespace)}"),
+                ], "{$this->packageView($this->package->viewNamespace)}-views");
+            }
+
+            if ($this->package->hasInertiaComponents) {
+                $packageDirectoryName = Str::of($this->packageView($this->package->viewNamespace))->studly()->remove('-')->value();
+
+                $this->publishes([
+                    $this->package->basePath('/../resources/js/Pages') => base_path("resources/js/Pages/{$packageDirectoryName}"),
+                ], "{$this->packageView($this->package->viewNamespace)}-inertia-components");
             }
 
             $now = Carbon::now();
@@ -104,6 +112,10 @@ abstract class PackageServiceProvider extends ServiceProvider
             $this->commands($this->package->commands);
         }
 
+        if (! empty($this->package->consoleCommands) && $this->app->runningInConsole()) {
+            $this->commands($this->package->consoleCommands);
+        }
+
         if ($this->package->hasTranslations) {
             $this->loadTranslationsFrom(
                 $this->package->basePath('/../resources/lang/'),
@@ -125,8 +137,14 @@ abstract class PackageServiceProvider extends ServiceProvider
 
         if (count($this->package->viewComponents)) {
             $this->publishes([
-                $this->package->basePath('/../Components') => base_path("app/View/Components/vendor/{$this->package->shortName()}"),
+                $this->package->basePath('/Components') => base_path("app/View/Components/vendor/{$this->package->shortName()}"),
             ], "{$this->package->name}-components");
+        }
+
+        if ($this->package->publishableProviderName) {
+            $this->publishes([
+                $this->package->basePath("/../resources/stubs/{$this->package->publishableProviderName}.php.stub") => base_path("app/Providers/{$this->package->publishableProviderName}.php"),
+            ], "{$this->package->shortName()}-provider");
         }
 
 
@@ -188,5 +206,10 @@ abstract class PackageServiceProvider extends ServiceProvider
         $reflector = new ReflectionClass(get_class($this));
 
         return dirname($reflector->getFileName());
+    }
+
+    public function packageView(?string $namespace)
+    {
+        return is_null($namespace) ? $this->package->shortName() : $this->package->viewNamespace;
     }
 }

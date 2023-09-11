@@ -8,12 +8,14 @@
       </style>
       <!-- basic -->
       <meta charset="utf-8">
+      <x-seo::meta />
+
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <!-- mobile metas -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>ZIX</title>
+      <title>My Store</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -49,14 +51,14 @@
 
       <section class="banner_main">
          <div id="banner1" class="carousel slide" data-ride="carousel">
-            
+
             <div class="carousel-inner">
                <div class="carousel-item active">
                   <div class="container">
                      <div class="carousel-caption">
                         <div class="row">
                            <div class="col-md-6">
-                            
+
                               <div class="text-bg">
                                  <span>{{ $desc->title }}</span>
                                  <h1>{{ $desc->type }}</h1>
@@ -77,10 +79,10 @@
                      </div>
                   </div>
                </div>
-             
-             
-           
-            
+
+
+
+
             </div>
             <a class="carousel-control-prev" href="#banner1" role="button" data-slide="prev">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
@@ -94,7 +96,7 @@
       <!-- three_box -->
       <div class="three_box">
          <div class="container">
-            
+
             <div class="row">
                @foreach($devices as $device)
                <div class="col-md-4">
@@ -112,7 +114,7 @@
       </div>
       <!-- three_box -->
       <!-- products -->
-      <x-Products color="white" main_name="Categories" :name="$categories" /> 
+      <x-Products color="white" main_name="Categories" :name="$categories" />
       <!-- end products -->
       <!-- laptop  section -->
       <div class="laptop">
@@ -202,7 +204,7 @@
       <!-- sidebar -->
       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="js/custom.js"></script>
-    
+
    </body>
    {{-- @dd($desc->getTranslations()) --}}
    {{-- @dd($name) --}}

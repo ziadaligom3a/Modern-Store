@@ -2,13 +2,10 @@
 
 namespace Illuminate\Foundation\Auth;
 
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
-use App\Http\Controllers\Admin\ImageApiController;
-use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 trait RegistersUsers
 {
@@ -32,25 +29,41 @@ trait RegistersUsers
      */
     public function register(Request $request)
     {
-        try{
-            $validate = request()->validate([
-                'name' => 'required',
-                'email' => ['required','email',Rule::unique('users','email')],
-                'password' => 'required',
-            ]);
-            
-            // dd($img);
-            $validate['password'] = bcrypt($validate['password']);
-            $validate['img'] = 'null';
-            $user = User::create($validate);
-            $user->assignRole('User');
-            $attempt = auth()->login($user);
-            return redirect('/home');
-    
-        }catch(\Exception $e){
-    
-            return response()->json([[$e->getMessage()]],401,[]);
+        dd($this->validator($request->all()));
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
         }
-    
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath());
+    }
+
+    /**
+     * Get the guard to be used during registration.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard();
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        //
     }
 }

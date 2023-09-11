@@ -27,8 +27,7 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
-        'img',
-        'role'
+        'img'
     ];
 
     /**
@@ -55,16 +54,16 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Product::class,'userps','user_id','product_id');
     }
 
-   
+
     public function getJWTIdentifier(){
 
         return $this->getKey();
-    } 
+    }
 
     public function getJWTCustomClaims()
     {
-        return []; 
-    
+        return [];
+
     }
 
 }
