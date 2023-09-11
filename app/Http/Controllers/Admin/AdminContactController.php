@@ -24,7 +24,7 @@ class AdminContactController extends Controller
 
        $mail = Mail::send('mail.index',['validate' => $GLOBALS['validate']],function($message){
 
-        $message->to('ajzead660@gmail.com','New Mail')->subject('New Mail');
+        $message->to('your email','New Mail')->subject('New Mail');
         $message->from($GLOBALS['validate']['email'],$GLOBALS['validate']['name']);
 
        });

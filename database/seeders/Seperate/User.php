@@ -18,8 +18,8 @@ class User extends Seeder
         DB::table('users')->insert([
 
             'name' => 'Ziad Ali',
-            'email' => 'ajzead660@gmail.com',
-            'password' => bcrypt('ajzead660@gmail.com'),
+            'email' => 'test@gmail.com',
+            'password' => bcrypt('test@gmail.com'),
             'img' => 'users/XtgG6GWQ3arxN7Debpqzlx8ve1KxaaTuFrPgYUKE.jpg',
             'role' => '1'
 
